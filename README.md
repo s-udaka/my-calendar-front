@@ -1,1 +1,21 @@
 # my-calendar-front
+## アプリ開発手順（記録用）
+- GitHub上で当リポジトリ`my-calendar-front`を作成
+- リポジトリを落としてくる
+  - `git clone https://github.com/s-udaka/my-calendar-front.git`
+- アプリケーションを作成する
+  - `cd my-calendar-front`
+  - `npx create-react-app my-calendar --typescript`
+- Storybookを追加する
+  - `cd my-calendar`
+  - `npx -p @storybook/cli sb init`
+- プロジェクトのルートフォルダーに.envファイルを作成し、以下記載
+  - `SKIP_PREFLIGHT_CHECK=true`
+- react-router-domをインストールします
+  - `npm install react-router-dom @types/react-router-dom`
+- ターミナルでテストランナー (Jest) を開始する
+  - `yarn test --watchAll`
+- ポート 6006 でコンポーネントエクスプローラーを起動する
+  - `yarn storybook`
+- ポート 3000 でフロントエンドアプリケーションを起動する
+  - `yarn start`
