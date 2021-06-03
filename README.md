@@ -19,3 +19,16 @@
   - `yarn storybook`
 - ポート 3000 でフロントエンドアプリケーションを起動する
   - `yarn start`
+- Reactアプリをコンテナで動かすためのDockerfileを作成する
+- GithubActionsでAWS ECRへイメージをプッシュするためのymlファイルを作成する
+  - `.github/workflows/ecr_push.yml`
+
+## 参考にした記事
+- `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
+  - 主にGithubActionsを使ったAWS ECRへのイメージプッシュの工程を参考にした
+- `https://casualdevelopers.com/tech-tips/how-to-deploy-dockerized-react-application-to-aws-with-ecr-and-ecs-ec2/`
+  - 主にReactアプリをコンテナイメージにビルドする工程を参考にした
+- `https://docs.microsoft.com/ja-jp/windows/dev-environment/javascript/nodejs-on-wsl`
+  - 主にWSL2でnodeの環境を構築する工程を参考にした
+- `https://qiita.com/Dragon-taro/items/03f322dee15b19c33613`
+  - 主にカレンダーアプリの作成工程を参考にした
