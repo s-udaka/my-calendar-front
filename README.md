@@ -22,6 +22,9 @@
 - Reactアプリをコンテナで動かすためのDockerfileを作成する
 - GithubActionsでAWS ECRへイメージをプッシュするためのymlファイルを作成する
   - `.github/workflows/ecr_push.yml`
+- ActionsでECRへイメージがプッシュされたことを確認する
+- AWS App Runnerを用いて、ECRのイメージを自動的にデプロイするように設定（↓の記事の*デプロイ*からやっただけ）
+  - `https://qiita.com/Kouichi_Itagaki/items/4aa174a2993e8cc87ebe`
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
