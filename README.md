@@ -26,6 +26,7 @@
 - AWS App Runnerを用いて、ECRのイメージを自動的にデプロイするように設定（↓の記事の*デプロイ*からやっただけ）
   - `https://qiita.com/Kouichi_Itagaki/items/4aa174a2993e8cc87ebe`
 - `v`から始まるタグ付きでコミットすると自動的にActionsが動いてECRにイメージがプッシュされる
+- dynamodb_localのセットアップ
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -38,3 +39,5 @@
   - 主にカレンダーアプリの作成工程を参考にした
 - `https://qiita.com/growsic/items/ed67e03fda5ab7ef9d08`
   - コミットにタグを付ける方法を参考にした
+- `https://hackers-high.com/aws/dynamodb-local-development/`
+  - dynamodb_localのセットアップを参考にした
