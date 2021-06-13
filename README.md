@@ -1,5 +1,5 @@
 # my-calendar-front
-## アプリ開発手順（記録用）
+## アプリ開発準備手順（記録用）
 - GitHub上で当リポジトリ`my-calendar-front`を作成
 - リポジトリを落としてくる
   - `git clone https://github.com/s-udaka/my-calendar-front.git`
@@ -27,6 +27,16 @@
   - `https://qiita.com/Kouichi_Itagaki/items/4aa174a2993e8cc87ebe`
 - `v`から始まるタグ付きでコミットすると自動的にActionsが動いてECRにイメージがプッシュされる
 - dynamodb_localのセットアップ
+## アプリ開発実装手順（記録用）
+### Material-UIインストール
+- `yarn add @material-ui/core`
+- `yarn add @material-ui/icons`
+### React Routerインストール
+- `yarn add react-router react-router-dom`
+### ログイン画面とアカウント作成画面を作成
+- ここからテンプレートを持ってきて呼び出すようにしただけ→`https://material-ui.com/ja/getting-started/templates/`
+### ルーター機能を作成
+- `App.js`でルーティングするようにした
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
