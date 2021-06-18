@@ -1,17 +1,18 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './pages/Login';
-import CreateAccount from './pages/CreateAccount';
+// import CreateAccount from './pages/CreateAccount';
+import { SignUp } from './components/SignUp';
+import { SignIn } from './components/SignIn';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path='/signup'>
-          <CreateAccount />
+          <SignUp />
         </Route>
         <Route path='/'>
-          <Login />
+          <SignIn />
         </Route>
       </Switch>
     </Router>
