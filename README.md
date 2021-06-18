@@ -37,6 +37,9 @@
 - ここからテンプレートを持ってきて呼び出すようにしただけ→`https://material-ui.com/ja/getting-started/templates/`
 ### ルーター機能を作成
 - `App.js`でルーティングするようにした
+### envファイル切り替え
+- `yarn global add dotenv-cli`
+- 環境ごとのenvファイルを作成し、package.jsonのスクリプト改修
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -51,3 +54,5 @@
   - コミットにタグを付ける方法を参考にした
 - `https://hackers-high.com/aws/dynamodb-local-development/`
   - dynamodb_localのセットアップを参考にした
+- `https://dev.classmethod.jp/articles/react-dotenv-cli/`
+  - envファイルの環境ごとの切り替えで参考にした
