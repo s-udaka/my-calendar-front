@@ -3,8 +3,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { addItem } from '../logics/DynamoController';
+import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -48,6 +50,33 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignUp = () => {
   const classes = useStyles();
+  const [values, setValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  });
+  const [errMsg, setErrMsg] = useState('');
+  const history = useHistory();
+  const handleInputChange = (e) => {
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    setValues({ ...values, [name]: value });
+  }
+  const handleSubmit = () => {
+    const item = {
+      'firstName': values.firstName,
+      'lastName': values.lastName,
+      'email': values.email,
+      'password': values.password
+    }
+    if(addItem('users', item)) {
+      history.push('/');
+    } else {
+      setErrMsg('登録に失敗しました')
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,7 +88,8 @@ export const SignUp = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <p color='red'>{errMsg}</p>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -71,6 +101,8 @@ export const SignUp = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={values.firstName}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,6 +114,8 @@ export const SignUp = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={values.lastName}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +127,8 @@ export const SignUp = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={values.email}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,12 +141,8 @@ export const SignUp = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                value={values.password}
+                onChange={handleInputChange}
               />
             </Grid>
           </Grid>

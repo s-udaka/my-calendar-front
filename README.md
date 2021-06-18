@@ -40,6 +40,8 @@
 ### envファイル切り替え
 - `yarn global add dotenv-cli`
 - 環境ごとのenvファイルを作成し、package.jsonのスクリプト改修
+### Reactからdynamodbに接続
+- `yarn add aws-sdk`
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -56,3 +58,5 @@
   - dynamodb_localのセットアップを参考にした
 - `https://dev.classmethod.jp/articles/react-dotenv-cli/`
   - envファイルの環境ごとの切り替えで参考にした
+- `https://www.wakuwakubank.com/posts/670-nodejs-dynamodb/`
+  - DynamoDBへのアクセスについて参考にした
