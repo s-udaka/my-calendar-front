@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { addItem } from '../logics/DynamoController';
+import { DynamoController } from '../logics/DynamoController';
 import { useHistory } from 'react-router-dom';
 
 function Copyright() {
@@ -65,17 +65,30 @@ export const SignUp = () => {
     setValues({ ...values, [name]: value });
   }
   const handleSubmit = () => {
+    const dc = new DynamoController();
     const item = {
       'firstName': values.firstName,
       'lastName': values.lastName,
       'email': values.email,
       'password': values.password
     }
-    if(addItem('users', item)) {
-      history.push('/');
-    } else {
-      setErrMsg('登録に失敗しました')
-    }
+    // if(dc.addItem('users', item)) history.push('/');
+    // else setErrMsg('登録に失敗しました');
+    console.info('addItem前');
+    dc.addItem('users', item)
+      .then((bool) => {
+        console.info('addItem後1');
+        console.info(String(bool));
+        if(bool) {
+          console.info('成功');
+          history.push('/');
+        } else {
+          console.info('失敗');
+          setErrMsg('登録に失敗しました');
+        }
+        console.info('addItem後2');
+      }
+    );
   }
 
   return (
