@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -77,6 +77,10 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
     const name = target.name;
     setValues({ ...values, [name]: value });
   }
+
+  useEffect(()=>{
+    console.log('SignUpTemplateのuseEffectが実行されました')
+  })
 
   return (
     <Container component="main" maxWidth="xs">

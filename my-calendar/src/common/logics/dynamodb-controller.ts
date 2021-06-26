@@ -35,7 +35,7 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     };
     try {
         const data = await ddbClient.send(new PutItemCommand(params));
-        console.log(data);
+        console.info(data);
         return true;
     } catch (err) {
         console.error(err);
@@ -58,17 +58,24 @@ export const getUser = async (email: string): Promise<UserModel|undefined> => {
         },
         ProjectionExpression: "ATTRIBUTE_NAME",
     };
-    const data = await ddbClient.send(new GetItemCommand(params));
-    console.log("Success", data.Item);
-    if (data.Item) {
-        const res: UserModel = {
-            firstName: String(data.Item['firstName']),
-            lastName: String(data.Item['lastName']),
-            email: String(data.Item['email']),
-            password: String(data.Item['password']),
+    console.info('getUser呼び出し直後');
+    try {
+        const data = await ddbClient.send(new GetItemCommand(params));
+        console.info("🚀 ~ file: dynamodb-controller.ts ~ line 63 ~ getUser ~ data", data)
+        console.info("Success", data.Item);
+        if (data.Item) {
+            const res: UserModel = {
+                firstName: String(data.Item['firstName']),
+                lastName: String(data.Item['lastName']),
+                email: String(data.Item['email']),
+                password: String(data.Item['password']),
+            }
+            return res;
+        } else {
+            return undefined;
         }
-        return res;
-    } else {
+    } catch (err) {
+        console.error(err);
         return undefined;
     }
 }

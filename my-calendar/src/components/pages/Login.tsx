@@ -13,8 +13,10 @@ const Login: React.FC = () => {
 
     const handleOnClickLogin = (args: SignInInputModel) => {
         if (args.email && args.password) {
+            console.info('getUser呼び出し前');
             getUser(args.email)
                 .then((res) => {
+                    console.info("🚀 ~ file: Login.tsx ~ line 18 ~ .then ~ res", res)
                     if (res) {
                         history.push('/home', { userInfo: res });
                     } else {
@@ -22,6 +24,7 @@ const Login: React.FC = () => {
                     }
                 })
                 .catch(() => {
+                    console.info('getUser呼び出し後キャッチ');
                     setMsg('例外発生');
                 })
         } else {
