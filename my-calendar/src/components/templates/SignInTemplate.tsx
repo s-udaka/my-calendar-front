@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,8 +46,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignInTemplate: React.FC = () => {
+export interface SignInTemplateProps {
+  events: {
+    onClickLogin: (args: {
+      email: string;
+      password: string;
+    }) => void;
+  }
+}
+
+export const SignInTemplate: React.FC<SignInTemplateProps> = ({
+  events
+}) => {
   const classes = useStyles();
+  const [values, setValues] = useState({
+    email: '',
+    password: ''
+  });
+  const handleInputChange = (e: { target: any; }) => {
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    setValues({ ...values, [name]: value });
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,6 +91,8 @@ export const SignInTemplate: React.FC = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            value={values.email}
+            onChange={handleInputChange}
           />
           <TextField
             variant="outlined"
@@ -81,6 +104,8 @@ export const SignInTemplate: React.FC = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={values.password}
+            onChange={handleInputChange}
           />
           <Button
             type="submit"
@@ -88,6 +113,12 @@ export const SignInTemplate: React.FC = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => {
+              events.onClickLogin({
+                email: values.email, 
+                password: values.password,
+              })
+            }}
           >
             Sign In
           </Button>

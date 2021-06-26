@@ -1,9 +1,24 @@
 import React from "react";
-import { SignInTemplate } from "../templates/SignInTemplate";
+import {
+    SignInTemplate,
+    SignInTemplateProps
+} from "../templates/SignInTemplate";
+import { useHistory } from "react-router";
 
 const Login: React.FC = () => {
+    const history = useHistory();
+
+    const handleOnClickLogin = (args: { email: string, password: string }) => {
+        history.push('/home');
+    }
+
+    const SignInProps: SignInTemplateProps = {
+        events: {
+            onClickLogin: handleOnClickLogin,
+        }
+    }
     return (
-        <SignInTemplate />
+        <SignInTemplate {...SignInProps} />
     );
 }
 
