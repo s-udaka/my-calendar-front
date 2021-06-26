@@ -46,17 +46,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export interface SignInInputModel {
+  email: string;
+  password: string;
+}
+
 export interface SignInTemplateProps {
   events: {
-    onClickLogin: (args: {
-      email: string;
-      password: string;
-    }) => void;
-  }
+    onClickLogin: (args: SignInInputModel) => void;
+  };
+  msg: string;
 }
 
 export const SignInTemplate: React.FC<SignInTemplateProps> = ({
-  events
+  events,
+  msg
 }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -80,6 +84,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        <p color='red'>{msg}</p>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"

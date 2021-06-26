@@ -56,7 +56,7 @@ export interface SignUpInputModel {
 export interface SignUpTemplateProps {
   events: {
     onClickSignUp: (args: SignUpInputModel) => void;
-  }
+  };
   msg: string;
 }
 

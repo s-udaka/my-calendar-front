@@ -1,6 +1,7 @@
 import {
     PutItemCommand,
-    DynamoDBClient
+    GetItemCommand,
+    DynamoDBClient,
 } from "@aws-sdk/client-dynamodb";
 import { SignUpInputModel } from "../../components/templates/SignUpTemplate";
 
@@ -22,7 +23,7 @@ const tableNameUsers = 'users';
  * @param args - 登録するユーザーの情報
  * @returns ユーザー登録処理結果 {boolean}
  */
-export const userRegist = async (item: SignUpInputModel): Promise<boolean> => {
+export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     const params = {
         TableName: tableNameUsers,
         Item: {
@@ -41,3 +42,33 @@ export const userRegist = async (item: SignUpInputModel): Promise<boolean> => {
         return false;
     }
 };
+
+export interface UserModel {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
+export const getUser = async (email: string): Promise<UserModel|undefined> => {
+    const params = {
+        TableName: tableNameUsers,
+        Key: {
+            email: { S: email },
+        },
+        ProjectionExpression: "ATTRIBUTE_NAME",
+    };
+    const data = await ddbClient.send(new GetItemCommand(params));
+    console.log("Success", data.Item);
+    if (data.Item) {
+        const res: UserModel = {
+            firstName: String(data.Item['firstName']),
+            lastName: String(data.Item['lastName']),
+            email: String(data.Item['email']),
+            password: String(data.Item['password']),
+        }
+        return res;
+    } else {
+        return undefined;
+    }
+}
