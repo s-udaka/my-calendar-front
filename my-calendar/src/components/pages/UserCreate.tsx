@@ -1,7 +1,7 @@
 import React from "react";
 
-const SignUp: React.FC = () => {
+const UserCreate: React.FC = () => {
     return <>アカウント作成ページ</>;
 }
 
-export default SignUp;
+export default UserCreate;

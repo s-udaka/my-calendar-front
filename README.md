@@ -30,8 +30,7 @@
 - dynamodb_localのセットアップ
 ## アプリ開発実装手順（記録用）
 ### Material-UIインストール
-- `yarn add @material-ui/core`
-- `yarn add @material-ui/icons`
+- `yarn add @material-ui/core @material-ui/icons`
 ### ログイン画面とアカウント作成画面を作成
 - ここからテンプレートを持ってきて呼び出すようにしただけ→`https://material-ui.com/ja/getting-started/templates/`
 ### ルーター機能を作成

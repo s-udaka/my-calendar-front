@@ -1,15 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import './App.css';
-import SignIn from './components/pages/SignIn';
-import SignUp from './components/pages/SignUp';
+import Login from './components/pages/Login';
+import UserCreate from './components/pages/UserCreate';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/signup" component={SignUp} exact />
-        <Route path="/" component={SignIn} exact />
+        <Route path="/signup" component={UserCreate} exact />
+        <Route path="/" component={Login} exact />
+        <Redirect to="/" />
       </Switch>
     </Router>
   );
