@@ -12,7 +12,8 @@
 - プロジェクトのルートフォルダーに.envファイルを作成し、以下記載
   - `SKIP_PREFLIGHT_CHECK=true`
 - react-router-domをインストールします
-  - `npm install react-router-dom @types/react-router-dom`
+  - `yarn add react-router-dom`
+  - `yarn add -D @types/react-router-dom`
 - ターミナルでテストランナー (Jest) を開始する
   - `yarn test --watchAll`
 - ポート 6006 でコンポーネントエクスプローラーを起動する
@@ -31,14 +32,12 @@
 ### Material-UIインストール
 - `yarn add @material-ui/core`
 - `yarn add @material-ui/icons`
-### React Routerインストール
-- `yarn add react-router react-router-dom`
 ### ログイン画面とアカウント作成画面を作成
 - ここからテンプレートを持ってきて呼び出すようにしただけ→`https://material-ui.com/ja/getting-started/templates/`
 ### ルーター機能を作成
 - `App.js`でルーティングするようにした
 ### envファイル切り替え
-- `yarn global add dotenv-cli`
+- `yarn add -D dotenv-cli`
 - 環境ごとのenvファイルを作成し、package.jsonのスクリプト改修
 ### Reactからdynamodbに接続
 - `yarn add aws-sdk`
