@@ -5,7 +5,7 @@
   - `git clone https://github.com/s-udaka/my-calendar-front.git`
 - アプリケーションを作成する
   - `cd my-calendar-front`
-  - `npx create-react-app my-calendar --typescript`
+  - `npx create-react-app my-calendar --template typescript`
 - Storybookを追加する
   - `cd my-calendar`
   - `npx -p @storybook/cli sb init`
