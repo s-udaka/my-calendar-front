@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,8 +46,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignUpTemplate: React.FC = () => {
+export interface SignUpInputModel {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface SignUpTemplateProps {
+  events: {
+    onClickSignUp: (args: SignUpInputModel) => void;
+  }
+  msg: string;
+}
+
+export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
+  events,
+  msg
+}) => {
   const classes = useStyles();
+  const [values, setValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  });
+  const handleInputChange = (e: { target: any; }) => {
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    setValues({ ...values, [name]: value });
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,6 +88,7 @@ export const SignUpTemplate: React.FC = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        <p color='red'>{msg}</p>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -71,6 +101,8 @@ export const SignUpTemplate: React.FC = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={values.firstName}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,6 +114,8 @@ export const SignUpTemplate: React.FC = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={values.lastName}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +127,8 @@ export const SignUpTemplate: React.FC = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={values.email}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,6 +141,8 @@ export const SignUpTemplate: React.FC = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={values.password}
+                onChange={handleInputChange}
               />
             </Grid>
           </Grid>
@@ -114,6 +152,14 @@ export const SignUpTemplate: React.FC = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => {
+              events.onClickSignUp({
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email, 
+                password: values.password,
+              })
+            }}
           >
             Sign Up
           </Button>

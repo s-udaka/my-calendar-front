@@ -8,7 +8,10 @@ import { useHistory } from "react-router";
 const Login: React.FC = () => {
     const history = useHistory();
 
-    const handleOnClickLogin = (args: { email: string, password: string }) => {
+    const handleOnClickLogin = (args: {
+        email: string,
+        password: string
+    }) => {
         history.push('/home');
     }
 

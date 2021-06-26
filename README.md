@@ -39,7 +39,7 @@
 - `yarn add -D dotenv-cli`
 - 環境ごとのenvファイルを作成し、package.jsonのスクリプト改修
 ### Reactからdynamodbに接続
-- `yarn add aws-sdk`
+- `yarn add @aws-sdk/client-dynamodb`
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -62,3 +62,5 @@
   - typescriptのReactでルーティングするところらへんまで参考にした
 - `https://dev.classmethod.jp/articles/react-material-ui/`
   - typescriptのReactでMaterial-UIを使うところを参考にした
+- `https://qiita.com/sunnyG/items/05c2e9381d6ba2d9fccf`
+  - typescriptのReact環境構築で参考にした
