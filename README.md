@@ -59,3 +59,7 @@
   - envファイルの環境ごとの切り替えで参考にした
 - `https://www.wakuwakubank.com/posts/670-nodejs-dynamodb/`
   - DynamoDBへのアクセスについて参考にした
+- `https://qiita.com/mikan3rd/items/2576c2f993d9c28d744c`
+  - typescriptのReactでルーティングするところらへんまで参考にした
+- `https://dev.classmethod.jp/articles/react-material-ui/`
+  - typescriptのReactでMaterial-UIを使うところを参考にした
