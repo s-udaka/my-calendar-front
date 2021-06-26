@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignInTemplate: React.FC = () => {
+export const SignInTemplate: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -111,5 +111,3 @@ const SignInTemplate: React.FC = () => {
     </Container>
   );
 };
-
-export default SignInTemplate;

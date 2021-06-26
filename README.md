@@ -14,7 +14,7 @@
 - react-router-domをインストールします
   - `yarn add react-router-dom`
   - `yarn add -D @types/react-router-dom`
-- ターミナルでテストランナー (Jest) を開始する
+- ターミナルでテストランナー (Jest) を開始する（typescriptにしてから動かない→要調査）
   - `yarn test --watchAll`
 - ポート 6006 でコンポーネントエクスプローラーを起動する
   - `yarn storybook`
@@ -34,7 +34,7 @@
 ### ログイン画面とアカウント作成画面を作成
 - ここからテンプレートを持ってきて呼び出すようにしただけ→`https://material-ui.com/ja/getting-started/templates/`
 ### ルーター機能を作成
-- `App.js`でルーティングするようにした
+- `App.tsx`でルーティングするようにした
 ### envファイル切り替え
 - `yarn add -D dotenv-cli`
 - 環境ごとのenvファイルを作成し、package.jsonのスクリプト改修
