@@ -1,7 +1,10 @@
 import React from "react";
+import SignUpTemplate from "../templates/SignUpTemplate";
 
 const UserCreate: React.FC = () => {
-    return <>アカウント作成ページ</>;
+    return (
+        <SignUpTemplate />
+    );
 }
 
 export default UserCreate;
