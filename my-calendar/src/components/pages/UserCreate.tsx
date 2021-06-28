@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {
+    useState,
+    useEffect
+} from "react";
 import {
     SignUpTemplate,
     SignUpTemplateProps,
@@ -9,7 +12,7 @@ import { addUser } from "../../common/logics/dynamodb-controller";
 
 const UserCreate: React.FC = () => {
     const history = useHistory();
-    const [msg, setMsg] = useState('');
+    const [errMsg, setErrMsg] = useState('初期値');
 
     const handleOnClickSignUp = (args: SignUpInputModel) => {
         if (args.firstName && args.lastName && args.email && args.password) {
@@ -18,14 +21,14 @@ const UserCreate: React.FC = () => {
                     if (res) {
                         history.push('/');
                     } else {
-                        setMsg('ユーザー登録に失敗しました');
+                        setErrMsg('ユーザー登録に失敗しました');
                     }
                 })
                 .catch(() => {
-                    setMsg('例外発生');
+                    setErrMsg('例外発生');
                 })
         } else {
-            setMsg('全ての項目を入力してください');
+            setErrMsg('全ての項目を入力してください');
         }        
     }
 
@@ -37,7 +40,9 @@ const UserCreate: React.FC = () => {
         events: {
             onClickSignUp: handleOnClickSignUp,
         },
-        msg: msg
+        msg: {
+            errMsg: errMsg
+        }
     }
 
     return (
