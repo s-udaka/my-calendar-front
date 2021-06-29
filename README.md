@@ -42,6 +42,13 @@
 - `yarn add @aws-sdk/client-dynamodb`
 ### React-hook-formによるバリデーション実装
 - `yarn add react-hook-form`
+### eslint、prettierの設定
+- `yarn add -D eslint husky lint-staged prettier eslint-config-prettier`
+- `yarn add -D @typescript-eslint/{parser,eslint-plugin}`
+- `yarn add -D eslint-plugin-{react,react-hooks}`
+- .eslintrc.json、.prettierrc.json、.eslintignoreファイル作成
+- package.jsonにスクリプト等追記
+- yarn lintでエラーが出たところをつぶす
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -70,3 +77,6 @@
   - React-hook-formの公式ページ
 - `https://levelup.gitconnected.com/using-react-hook-form-with-material-ui-components-ba42ace9507a`
   - Material-UIとReact-hook-formを合わせ込むところを参考にした
+- ESLint、Prettier周りの設定で参考にした記事は以下
+  - `https://qiita.com/sprout2000/items/ee4fc97f83f45ba1d227`
+  - `https://qiita.com/sho-t/items/c9fe6d382636bd3402f8`
