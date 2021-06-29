@@ -1,15 +1,17 @@
 name: ECR Push
 
 on:
-  push:
-    branches:
-      - 'main'
+  pull_request:
+   branches:
+     - main
+   types:
+     - closed
 
 jobs:
   ecr-push:
     runs-on: ubuntu-latest
     name: ECR Push
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 's-udaka/release/')
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
     steps:
     - name: Checkout
       uses: actions/checkout@v2
