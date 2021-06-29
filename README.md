@@ -40,6 +40,8 @@
 - 環境ごとのenvファイルを作成し、package.jsonのスクリプト改修
 ### Reactからdynamodbに接続
 - `yarn add @aws-sdk/client-dynamodb`
+### React-hook-formによるバリデーション実装
+- `yarn add react-hook-form`
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -64,3 +66,7 @@
   - typescriptのReactでMaterial-UIを使うところを参考にした
 - `https://qiita.com/sunnyG/items/05c2e9381d6ba2d9fccf`
   - typescriptのReact環境構築で参考にした
+- `https://react-hook-form.com/jp/get-started`
+  - React-hook-formの公式ページ
+- `https://levelup.gitconnected.com/using-react-hook-form-with-material-ui-components-ba42ace9507a`
+  - Material-UIとReact-hook-formを合わせ込むところを参考にした

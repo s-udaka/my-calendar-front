@@ -50,25 +50,27 @@ export interface UserModel {
     password: string;
 }
 
+/**
+ * メールアドレスをキーにユーザー情報を取得する
+ * @param email - ユーザー情報のプライマリキーとなるメールアドレス
+ * @returns ユーザー情報 {UserModel|undefined}
+ */
 export const getUser = async (email: string): Promise<UserModel|undefined> => {
     const params = {
         TableName: tableNameUsers,
         Key: {
             email: { S: email },
         },
-        ProjectionExpression: "ATTRIBUTE_NAME",
     };
-    console.info('getUser呼び出し直後');
     try {
         const data = await ddbClient.send(new GetItemCommand(params));
-        console.info("🚀 ~ file: dynamodb-controller.ts ~ line 63 ~ getUser ~ data", data)
         console.info("Success", data.Item);
-        if (data.Item) {
+        if (data.Item && data.Item['email']) {
             const res: UserModel = {
-                firstName: String(data.Item['firstName']),
-                lastName: String(data.Item['lastName']),
-                email: String(data.Item['email']),
-                password: String(data.Item['password']),
+                firstName: String(data.Item['firstName'].S),
+                lastName: String(data.Item['lastName'].S),
+                email: String(data.Item['email'].S),
+                password: String(data.Item['password'].S),
             }
             return res;
         } else {

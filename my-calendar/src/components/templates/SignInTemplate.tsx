@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 const Copyright = () => {
   return (
@@ -55,7 +56,9 @@ export interface SignInTemplateProps {
   events: {
     onClickLogin: (args: SignInInputModel) => void;
   };
-  msg: string;
+  msg: {
+    errMsg: string;
+  }
 }
 
 export const SignInTemplate: React.FC<SignInTemplateProps> = ({
@@ -63,16 +66,15 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
   msg
 }) => {
   const classes = useStyles();
-  const [values, setValues] = useState({
-    email: '',
-    password: ''
-  });
-  const handleInputChange = (e: { target: any; }) => {
-    const target = e.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    setValues({ ...values, [name]: value });
-  }
+
+  // 入力フォームバリデーション
+  const { handleSubmit, control } = useForm<SignInInputModel>();
+  const onSubmit: SubmitHandler<SignInInputModel> = data => {
+    events.onClickLogin({
+      email: data.email,
+      password: data.password,
+    })
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -84,33 +86,55 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <p color='red'>{msg}</p>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={values.email}
-            onChange={handleInputChange}
+        <p color='red'>{msg.errMsg}</p>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name='email'
+            control={control}
+            rules={{ required: 'メールアドレスを入力してください', maxLength: { value: 100, message: 'メールアドレスは100文字以内で入力してください' } }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={values.password}
-            onChange={handleInputChange}
+          <Controller
+            name='password'
+            control={control}
+            rules={{
+              required: 'パスワードを入力してください',
+              maxLength: { value: 20, message: 'パスワードは20文字以内で入力してください' },
+              minLength: { value: 8, message: 'パスワードは8文字以上で入力してください'  }
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
           />
           <Button
             type="submit"
@@ -118,12 +142,6 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {
-              events.onClickLogin({
-                email: values.email, 
-                password: values.password,
-              })
-            }}
           >
             Sign In
           </Button>

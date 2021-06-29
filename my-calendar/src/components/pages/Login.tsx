@@ -9,26 +9,24 @@ import { getUser } from "../../common/logics/dynamodb-controller";
 
 const Login: React.FC = () => {
     const history = useHistory();
-    const [msg, setMsg] = useState('');
+    const [errMsg, setErrMsg] = useState('');
 
     const handleOnClickLogin = (args: SignInInputModel) => {
         if (args.email && args.password) {
-            console.info('getUser呼び出し前');
             getUser(args.email)
                 .then((res) => {
-                    console.info("🚀 ~ file: Login.tsx ~ line 18 ~ .then ~ res", res)
-                    if (res) {
-                        history.push('/home', { userInfo: res });
+                    if (res && res.password === args.password) {
+                        history.push('/home', res);
                     } else {
-                        setMsg('メールアドレスまたはパスワードが正しくありません');
+                        setErrMsg('メールアドレスまたはパスワードが正しくありません');
                     }
                 })
-                .catch(() => {
-                    console.info('getUser呼び出し後キャッチ');
-                    setMsg('例外発生');
+                .catch((err) => {
+                    console.error(err);
+                    history.replace('/');
                 })
         } else {
-            setMsg('メールアドレスとパスワードを入力してください');
+            setErrMsg('メールアドレスとパスワードを入力してください');
         }
     }
 
@@ -36,7 +34,9 @@ const Login: React.FC = () => {
         events: {
             onClickLogin: handleOnClickLogin,
         },
-        msg: msg
+        msg: {
+            errMsg: errMsg
+        }
     }
     return (
         <SignInTemplate {...SignInProps} />

@@ -1,7 +1,4 @@
-import React, {
-  // useState,
-  useEffect
-} from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -66,34 +63,15 @@ export interface SignUpTemplateProps {
   }
 }
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
 export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
   events,
   msg
 }) => {
   const classes = useStyles();
-  // const [values, setValues] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: ''
-  // });
-  // const handleInputChange = (e: { target: any; }) => {
-  //   const target = e.target;
-  //   const value = target.type === "checkbox" ? target.checked : target.value;
-  //   const name = target.name;
-  //   setValues({ ...values, [name]: value });
-  // }
 
   // 入力フォームバリデーション
-  const { handleSubmit, control } = useForm<FormData>();
-  const onSubmit: SubmitHandler<FormData> = data => {
+  const { handleSubmit, control } = useForm<SignUpInputModel>();
+  const onSubmit: SubmitHandler<SignUpInputModel> = data => {
     events.onClickSignUp({
       firstName: data.firstName,
       lastName: data.lastName,
@@ -101,10 +79,6 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
       password: data.password
     })
   };
-
-  useEffect(()=>{
-    console.log('SignUpTemplateのuseEffectが実行されました')
-  })
 
   return (
     <Container component="main" maxWidth="xs">
@@ -116,7 +90,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <p color='red'>{msg}</p>
+        <p color='red'>{msg.errMsg}</p>
         <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -124,7 +98,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
                 name='firstName'
                 control={control}
                 rules={{ required: '氏名（名）を入力してください', maxLength: { value: 30, message: '氏名（名）は30文字以内で入力してください' }}}
-                render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     autoComplete="fname"
                     variant="outlined"
@@ -137,8 +111,6 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : null}
-                    // value={values.firstName}
-                    // onChange={handleInputChange}
                   />
                 )}
               />
@@ -161,8 +133,6 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : null}
-                    // value={values.lastName}
-                    // onChange={handleInputChange}
                   />
                 )}
               />
@@ -186,8 +156,6 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : null}
-                    // value={values.email}
-                    // onChange={handleInputChange}
                   />
                 )}
               />
@@ -215,8 +183,6 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : null}
-                    // value={values.password}
-                    // onChange={handleInputChange}
                   />
                 )}
               />
@@ -228,7 +194,6 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
             variant="contained"
             color="primary"
             className={classes.submit}
-            // disabled={!formState.isValid}
           >
             Sign Up
           </Button>
