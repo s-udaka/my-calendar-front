@@ -2,13 +2,14 @@ name: ECR Push
 
 on:
   push:
-    tags: 
-      - v*
+    branches:
+      - 'main'
 
 jobs:
   ecr-push:
     runs-on: ubuntu-latest
     name: ECR Push
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
     steps:
     - name: Checkout
       uses: actions/checkout@v2
