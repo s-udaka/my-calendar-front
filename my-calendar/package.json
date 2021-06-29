@@ -28,23 +28,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "fix": "yarn format && yarn lint:fix",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "browserslist": {
     "production": [
@@ -66,6 +56,20 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.3.0",
     "@types/react-router-dom": "^5.1.7",
-    "dotenv-cli": "^4.0.0"
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "dotenv-cli": "^4.0.0",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write"
+    ]
   }
 }
