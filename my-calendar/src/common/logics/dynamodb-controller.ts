@@ -6,16 +6,23 @@ import {
 import { SignUpInputModel } from '../../components/templates/SignUpTemplate';
 
 // DynamoDBClientの使用準備
-const ddbClient = new DynamoDBClient({
-  region: 'ap-northeast-1',
-  endpoint: process.env.REACT_APP_DB_ENDPOINT,
-  credentials: {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    accessKeyId: process.env.REACT_APP_AWS_ACCESSKEY!,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    secretAccessKey: process.env.REACT_APP_AWS_SEC_ACCESSKEY!,
-  },
-});
+const ddbClient = () => {
+  // local環境の場合のみ、エンドポイントとダミー情報をセット
+  if (process.env.REACT_APP_ENV === 'local') {
+    return new DynamoDBClient({
+      region: process.env.REACT_APP_DB_REGION,
+      endpoint: process.env.REACT_APP_DB_ENDPOINT,
+      credentials: {
+        accessKeyId: 'dummy',
+        secretAccessKey: 'dummy',
+      },
+    });
+  } else {
+    return new DynamoDBClient({
+      region: process.env.REACT_APP_DB_REGION,
+    });
+  }
+};
 
 // ユーザーテーブルのテーブル名定義
 const tableNameUsers = 'users';
@@ -36,7 +43,8 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     },
   };
   try {
-    const data = await ddbClient.send(new PutItemCommand(params));
+    const dc = ddbClient();
+    const data = await dc.send(new PutItemCommand(params));
     console.info(data);
     return true;
   } catch (err) {
@@ -67,7 +75,8 @@ export const getUser = async (
     },
   };
   try {
-    const data = await ddbClient.send(new GetItemCommand(params));
+    const dc = ddbClient();
+    const data = await dc.send(new GetItemCommand(params));
     console.info('Success', data.Item);
     if (data.Item && data.Item['email']) {
       const res: UserModel = {
