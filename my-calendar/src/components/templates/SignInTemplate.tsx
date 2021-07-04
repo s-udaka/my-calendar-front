@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 const Copyright = () => {
   return (
@@ -25,7 +25,7 @@ const Copyright = () => {
       {'.'}
     </Typography>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,25 +55,31 @@ export interface SignInInputModel {
 export interface SignInTemplateProps {
   events: {
     onClickLogin: (args: SignInInputModel) => void;
+    onClickSignUp: () => void;
   };
   msg: {
     errMsg: string;
-  }
+  };
 }
 
 export const SignInTemplate: React.FC<SignInTemplateProps> = ({
   events,
-  msg
+  msg,
 }) => {
   const classes = useStyles();
 
   // 入力フォームバリデーション
   const { handleSubmit, control } = useForm<SignInInputModel>();
-  const onSubmit: SubmitHandler<SignInInputModel> = data => {
+  const onSubmit: SubmitHandler<SignInInputModel> = (data) => {
     events.onClickLogin({
       email: data.email,
       password: data.password,
-    })
+    });
+  };
+
+  // アカウント作成ページへ
+  const onClickSignUpLink = () => {
+    events.onClickSignUp();
   };
 
   return (
@@ -86,12 +92,21 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <p color='red'>{msg.errMsg}</p>
-        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+        <p color="red">{msg.errMsg}</p>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name='email'
+            name="email"
             control={control}
-            rules={{ required: 'メールアドレスを入力してください', maxLength: { value: 100, message: 'メールアドレスは100文字以内で入力してください' } }}
+            rules={{
+              required: 'メールアドレスを入力してください',
+              maxLength: {
+                value: 100,
+                message: 'メールアドレスは100文字以内で入力してください',
+              },
+            }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 variant="outlined"
@@ -111,12 +126,18 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
             )}
           />
           <Controller
-            name='password'
+            name="password"
             control={control}
             rules={{
               required: 'パスワードを入力してください',
-              maxLength: { value: 20, message: 'パスワードは20文字以内で入力してください' },
-              minLength: { value: 8, message: 'パスワードは8文字以上で入力してください'  }
+              maxLength: {
+                value: 20,
+                message: 'パスワードは20文字以内で入力してください',
+              },
+              minLength: {
+                value: 8,
+                message: 'パスワードは8文字以上で入力してください',
+              },
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
@@ -141,8 +162,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Sign In
           </Button>
           <Grid container>
@@ -152,7 +172,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link href="" variant="body2" onClick={onClickSignUpLink}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
