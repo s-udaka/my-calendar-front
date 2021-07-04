@@ -80,3 +80,5 @@
 - ESLint、Prettier周りの設定で参考にした記事は以下
   - `https://qiita.com/sprout2000/items/ee4fc97f83f45ba1d227`
   - `https://qiita.com/sho-t/items/c9fe6d382636bd3402f8`
+- reactで画面遷移する際にnginxで404エラーが発生する問題を解決するために参考にした記事
+  - `https://patrickjamesoneill.medium.com/404-not-found-with-docker-react-router-and-nginx-21fdce02c5`
