@@ -49,6 +49,20 @@
 - .eslintrc.json、.prettierrc.json、.eslintignoreファイル作成
 - package.jsonにスクリプト等追記
 - yarn lintでエラーが出たところをつぶす
+### AWS CDKのインストール
+- `yarn global add aws-cdk`
+- yarnでglobalにインストールした場合はパスを通す必要があるので、.bashrcの末尾に以下の行を挿入
+  - `export PATH="$(yarn global bin):$PATH"`
+- `cdk --version`でバージョンが表示されればOK
+- `mkdir aws-cdk`←awscdkのコードは別ディレクトリで管理する必要があるため
+- `cd aws-cdk`
+- `cdk init app --language typescript`←typescriptを使うプロジェクトができる
+- `yarn add @aws-cdk/aws-iam`←今回はIAMロールを作成したいので追加でインストール
+- `/lib/aws-cdk-stack.ts`にコードを書く
+- `npm run build`
+- `cdk deploy`
+- 失敗したので`bin/aws-cdk.ts`のenv行のコメントを外してawsアカウントの情報を指定
+- もう一度`npm run build`と`cdk deploy`を実行
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -82,3 +96,8 @@
   - `https://qiita.com/sho-t/items/c9fe6d382636bd3402f8`
 - reactで画面遷移する際にnginxで404エラーが発生する問題を解決するために参考にした記事
   - `https://patrickjamesoneill.medium.com/404-not-found-with-docker-react-router-and-nginx-21fdce02c5`
+- AWS CDKを使ってIAMロールを作成するところを参考にした記事
+  - `https://docs.aws.amazon.com/ja_jp/cdk/latest/guide/getting_started.html`
+  - `https://zenn.dev/waddy/articles/app-runner-nextjs-dynamodb`
+  - `https://dev.classmethod.jp/articles/cdk-practice-15-iam-role/`
+  - `https://docs.aws.amazon.com/ja_jp/cdk/latest/guide/environments.html`
