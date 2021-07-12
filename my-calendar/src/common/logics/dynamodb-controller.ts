@@ -20,6 +20,10 @@ const ddbClient = () => {
   } else {
     return new DynamoDBClient({
       region: process.env.REACT_APP_DB_REGION,
+      credentials: {
+        accessKeyId: 'dummy',
+        secretAccessKey: 'dummy',
+      },
     });
   }
 };
