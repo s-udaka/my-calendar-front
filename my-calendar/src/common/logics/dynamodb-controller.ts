@@ -21,8 +21,8 @@ const ddbClient = () => {
     return new DynamoDBClient({
       region: process.env.REACT_APP_DB_REGION,
       credentials: {
-        accessKeyId: 'dummy',
-        secretAccessKey: 'dummy',
+        accessKeyId: process.env.AWS_ACCESS_KEY!,
+        secretAccessKey: process.env.AWS_SECRET_KEY!,
       },
     });
   }
