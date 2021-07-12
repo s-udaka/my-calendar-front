@@ -23,7 +23,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "dotenv -e .env.local react-scripts start",
+    "start": "dotenv -e .env.prod react-scripts start",
+    "start-local": "dotenv -e .env.local react-scripts start",
     "build": "dotenv -e .env.local react-scripts build",
     "build-prod": "dotenv -e .env.prod react-scripts build",
     "test": "react-scripts test",
