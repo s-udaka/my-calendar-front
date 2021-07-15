@@ -5,14 +5,6 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import { SignUpInputModel } from '../../components/templates/SignUpTemplate';
 
-// DynamoDBClientの使用準備
-const ddbClient = () => {
-  // local環境の場合のみ、エンドポイントとダミー情報をセット
-  return new DynamoDBClient({
-    region: 'ap-northeast-1',
-  });
-};
-
 // ユーザーテーブルのテーブル名定義
 const tableNameUsers = 'users';
 
@@ -32,7 +24,15 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     },
   };
   try {
-    const dc = new DynamoDBClient({ region: 'ap-northeast-1' });
+    const dc = new DynamoDBClient({
+      region: 'ap-northeast-1',
+      credentials: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        accessKeyId: process.env.AWS_ACCESS_KEY!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        secretAccessKey: process.env.AWS_SECRET_KEY!,
+      },
+    });
     const data = await dc.send(new PutItemCommand(params));
     console.info(data);
     return true;
@@ -64,7 +64,15 @@ export const getUser = async (
     },
   };
   try {
-    const dc = ddbClient();
+    const dc = new DynamoDBClient({
+      region: 'ap-northeast-1',
+      credentials: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        accessKeyId: process.env.AWS_ACCESS_KEY!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        secretAccessKey: process.env.AWS_SECRET_KEY!,
+      },
+    });
     const data = await dc.send(new GetItemCommand(params));
     console.info('Success', data.Item);
     if (data.Item && data.Item['email']) {
