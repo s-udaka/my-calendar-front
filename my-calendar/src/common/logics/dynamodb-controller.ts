@@ -8,24 +8,9 @@ import { SignUpInputModel } from '../../components/templates/SignUpTemplate';
 // DynamoDBClientの使用準備
 const ddbClient = () => {
   // local環境の場合のみ、エンドポイントとダミー情報をセット
-  if (process.env.REACT_APP_ENV === 'local') {
-    return new DynamoDBClient({
-      region: process.env.REACT_APP_DB_REGION,
-      endpoint: process.env.REACT_APP_DB_ENDPOINT,
-      credentials: {
-        accessKeyId: 'dummy',
-        secretAccessKey: 'dummy',
-      },
-    });
-  } else {
-    return new DynamoDBClient({
-      region: process.env.REACT_APP_DB_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY!,
-        secretAccessKey: process.env.AWS_SECRET_KEY!,
-      },
-    });
-  }
+  return new DynamoDBClient({
+    region: 'ap-northeast-1',
+  });
 };
 
 // ユーザーテーブルのテーブル名定義
@@ -47,7 +32,7 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     },
   };
   try {
-    const dc = ddbClient();
+    const dc = new DynamoDBClient({ region: 'ap-northeast-1' });
     const data = await dc.send(new PutItemCommand(params));
     console.info(data);
     return true;
