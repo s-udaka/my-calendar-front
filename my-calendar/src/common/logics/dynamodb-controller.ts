@@ -24,13 +24,18 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     },
   };
   try {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const accesskey = process.env.AWS_ACCESS_KEY!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const secretkey = process.env.AWS_SECRET_KEY!;
+    console.info('環境変数読み込めてるか');
+    console.info(accesskey);
+    console.info(secretkey);
     const dc = new DynamoDBClient({
       region: 'ap-northeast-1',
       credentials: {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        accessKeyId: process.env.AWS_ACCESS_KEY!,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        secretAccessKey: process.env.AWS_SECRET_KEY!,
+        accessKeyId: accesskey,
+        secretAccessKey: secretkey,
       },
     });
     const data = await dc.send(new PutItemCommand(params));
@@ -64,13 +69,18 @@ export const getUser = async (
     },
   };
   try {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const accesskey = process.env.AWS_ACCESS_KEY!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const secretkey = process.env.AWS_SECRET_KEY!;
+    console.info('環境変数読み込めてるか');
+    console.info(accesskey);
+    console.info(secretkey);
     const dc = new DynamoDBClient({
       region: 'ap-northeast-1',
       credentials: {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        accessKeyId: process.env.AWS_ACCESS_KEY!,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        secretAccessKey: process.env.AWS_SECRET_KEY!,
+        accessKeyId: accesskey,
+        secretAccessKey: secretkey,
       },
     });
     const data = await dc.send(new GetItemCommand(params));

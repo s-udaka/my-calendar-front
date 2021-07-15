@@ -10,6 +10,7 @@ export class AwsCdkStack extends cdk.Stack {
 
     // AppRunnerからDynamoDBへアクセスできるIAMロールを作成
     new iam.Role(stack, 'AppRunnerForDynamoDBRole', {
+      roleName: 'AppRunnerForDynamoDBRole',
       assumedBy: new iam.ServicePrincipal('tasks.apprunner.amazonaws.com'),
       managedPolicies: [
           iam.ManagedPolicy.fromAwsManagedPolicyName(
