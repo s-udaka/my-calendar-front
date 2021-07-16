@@ -25,8 +25,8 @@
   "scripts": {
     "start": "dotenv -e .env.prod react-scripts start",
     "start-local": "dotenv -e .env.local react-scripts start",
-    "build": "dotenv -e .env.local react-scripts build",
-    "build-prod": "dotenv -e .env.prod react-scripts build",
+    "build": "dotenv -e .env.prod react-scripts build",
+    "build-local": "dotenv -e .env.local react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
@@ -35,7 +35,7 @@
     "fix": "yarn format && yarn lint:fix",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
-    "prepare": "cd .. && husky install my-calendar/.husky",
+    "prepare": "husky install .husky",
     "lint-staged": "lint-staged"
   },
   "browserslist": {
