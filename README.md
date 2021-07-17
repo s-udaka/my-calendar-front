@@ -105,3 +105,5 @@
   - `https://zenn.dev/waddy/articles/app-runner-nextjs-dynamodb`
   - `https://dev.classmethod.jp/articles/cdk-practice-15-iam-role/`
   - `https://docs.aws.amazon.com/ja_jp/cdk/latest/guide/environments.html`
+- Reactアプリを本番環境でDocker導入する
+  - `https://qiita.com/suzuki0430/items/225eb66223298d704241`
