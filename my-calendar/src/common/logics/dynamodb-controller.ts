@@ -33,6 +33,9 @@ const tableNameUsers = 'users';
  * @returns ユーザー登録処理結果 {boolean}
  */
 export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
+  console.info('環境変数読み込めてるか');
+  console.info(process.env.REACT_APP_ENV);
+  console.info(process.env.REACT_APP_DB_REGION);
   const params = {
     TableName: tableNameUsers,
     Item: {
