@@ -63,6 +63,10 @@
 - `cdk deploy`
 - 失敗したので`bin/aws-cdk.ts`のenv行のコメントを外してawsアカウントの情報を指定
 - もう一度`npm run build`と`cdk deploy`を実行
+### AWS上でDynamoDBへ接続できなかった
+- Dockerfileでイメージ化する際にnginx上にReactアプリを置くようにしていたことが原因と思われる
+  - App Runnerのコンソールでロールをアタッチしても、環境変数を使うようにしてもダメだった
+- Dockerfileからnginxに関する記載を削除する変更を加えた
 
 ## 参考にした記事
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
