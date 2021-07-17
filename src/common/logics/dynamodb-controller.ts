@@ -34,6 +34,7 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     console.info(accesskey);
     console.info(secretkey);
     console.info(region);
+    console.info(process.env.REACT_APP_ENV);
     const dc = new DynamoDBClient({
       region: region,
       // credentials: {
@@ -84,6 +85,7 @@ export const getUser = async (
     console.info(accesskey);
     console.info(secretkey);
     console.info(region);
+    console.info(process.env.REACT_APP_ENV);
     const dc = new DynamoDBClient({
       region: region,
       // credentials: {
