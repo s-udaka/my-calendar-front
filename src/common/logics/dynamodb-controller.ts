@@ -36,10 +36,10 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     console.info(region);
     const dc = new DynamoDBClient({
       region: region,
-      credentials: {
-        accessKeyId: accesskey,
-        secretAccessKey: secretkey,
-      },
+      // credentials: {
+      //   accessKeyId: accesskey,
+      //   secretAccessKey: secretkey,
+      // },
       // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       // endpoint: process.env.REACT_APP_DB_ENDPOINT!,
     });
@@ -86,10 +86,10 @@ export const getUser = async (
     console.info(region);
     const dc = new DynamoDBClient({
       region: region,
-      credentials: {
-        accessKeyId: accesskey,
-        secretAccessKey: secretkey,
-      },
+      // credentials: {
+      //   accessKeyId: accesskey,
+      //   secretAccessKey: secretkey,
+      // },
       // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       // endpoint: process.env.REACT_APP_DB_ENDPOINT!,
     });
