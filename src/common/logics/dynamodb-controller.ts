@@ -24,23 +24,23 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
     },
   };
   try {
-    // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    // const accesskey = process.env.REACT_APP_AWS_ACCESS_KEY!;
-    // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    // const secretkey = process.env.REACT_APP_AWS_SECRET_KEY!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const accesskey = process.env.AWS_ACCESS_KEY_ID!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const secretkey = process.env.AWS_SECRET_ACCESS_KEY!;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const region = process.env.REACT_APP_DB_REGION!;
     console.info('環境変数読み込めてるか');
-    // console.info(accesskey);
-    // console.info(secretkey);
+    console.info(accesskey);
+    console.info(secretkey);
     console.info(region);
     console.info(process.env.REACT_APP_ENV);
     const dc = new DynamoDBClient({
       region: region,
-      // credentials: {
-      //   accessKeyId: accesskey,
-      //   secretAccessKey: secretkey,
-      // },
+      credentials: {
+        accessKeyId: accesskey,
+        secretAccessKey: secretkey,
+      },
       // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       // endpoint: process.env.REACT_APP_DB_ENDPOINT!,
     });
@@ -75,23 +75,23 @@ export const getUser = async (
     },
   };
   try {
-    // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    // const accesskey = process.env.REACT_APP_AWS_ACCESS_KEY!;
-    // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    // const secretkey = process.env.REACT_APP_AWS_SECRET_KEY!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const accesskey = process.env.AWS_ACCESS_KEY_ID!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const secretkey = process.env.AWS_SECRET_ACCESS_KEY!;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const region = process.env.REACT_APP_DB_REGION!;
     console.info('環境変数読み込めてるか');
-    // console.info(accesskey);
-    // console.info(secretkey);
+    console.info(accesskey);
+    console.info(secretkey);
     console.info(region);
     console.info(process.env.REACT_APP_ENV);
     const dc = new DynamoDBClient({
       region: region,
-      // credentials: {
-      //   accessKeyId: accesskey,
-      //   secretAccessKey: secretkey,
-      // },
+      credentials: {
+        accessKeyId: accesskey,
+        secretAccessKey: secretkey,
+      },
       // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       // endpoint: process.env.REACT_APP_DB_ENDPOINT!,
     });
