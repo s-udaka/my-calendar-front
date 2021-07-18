@@ -22,9 +22,13 @@ const ddbClient = () => {
   } else {
     // return new DynamoDBClient({
     return new aws.DynamoDB.DocumentClient({
-      apiVersion: '2012-08-10',
       region: process.env.REACT_APP_DB_REGION,
-      signatureVersion: 'v4',
+      credentials: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY!,
+      },
     });
   }
 };
@@ -42,6 +46,8 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
   console.info(process.env.REACT_APP_ENV);
   console.info(process.env.REACT_APP_DB_REGION);
   console.info(process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI);
+  console.info(process.env.REACT_APP_AWS_ACCESS_KEY);
+  console.info(process.env.REACT_APP_AWS_SECRET_KEY);
   // const params = {
   //   TableName: tableNameUsers,
   //   Item: {
@@ -91,6 +97,8 @@ export const getUser = async (
   console.info(process.env.REACT_APP_ENV);
   console.info(process.env.REACT_APP_DB_REGION);
   console.info(process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI);
+  console.info(process.env.REACT_APP_AWS_ACCESS_KEY);
+  console.info(process.env.REACT_APP_AWS_SECRET_KEY);
   // const params = {
   //   TableName: tableNameUsers,
   //   Key: {
