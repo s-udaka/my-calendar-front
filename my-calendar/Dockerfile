@@ -10,7 +10,7 @@ ARG aws_secret_key
 # 環境変数にセット
 ENV REACT_APP_AWS_ACCESS_KEY=$aws_access_key
 ENV REACT_APP_AWS_SECRET_KEY=$aws_secret_key
-RUN yarn build-local
+RUN yarn build
 
 FROM nginx:1.15-alpine
 COPY --from=builder /app/build /usr/share/nginx/html
