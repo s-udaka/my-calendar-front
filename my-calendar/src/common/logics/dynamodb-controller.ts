@@ -22,7 +22,9 @@ const ddbClient = () => {
   } else {
     // return new DynamoDBClient({
     return new aws.DynamoDB.DocumentClient({
+      apiVersion: '2012-08-10',
       region: process.env.REACT_APP_DB_REGION,
+      signatureVersion: 'v4',
     });
   }
 };
