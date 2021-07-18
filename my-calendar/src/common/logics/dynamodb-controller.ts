@@ -41,6 +41,7 @@ export const addUser = async (item: SignUpInputModel): Promise<boolean> => {
   console.info('環境変数読み込めてるか');
   console.info(process.env.REACT_APP_ENV);
   console.info(process.env.REACT_APP_DB_REGION);
+  console.info(process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI);
   // const params = {
   //   TableName: tableNameUsers,
   //   Item: {
@@ -86,6 +87,10 @@ export interface UserModel {
 export const getUser = async (
   email: string
 ): Promise<UserModel | undefined> => {
+  console.info('環境変数読み込めてるか');
+  console.info(process.env.REACT_APP_ENV);
+  console.info(process.env.REACT_APP_DB_REGION);
+  console.info(process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI);
   // const params = {
   //   TableName: tableNameUsers,
   //   Key: {
