@@ -93,6 +93,12 @@
   - `docker run --rm -d -p 80:80 my-calendar-front:0.0.1`
   - コンソールログにアクセスキーとシークレットキーが表示されていれば環境変数が呼び出せてるので OK
 
+### Material-UIを使用してカレンダーを作成する
+
+#### 各種ライブラリのインストール
+- `yarn add @fullcalendar/react @fullcalendar/timegrid @fullcalendar/interaction react-datepicker date-fns`
+- `yarn add -D @types/react-datepicker` ※型定義は開発環境のみに入れたいため
+
 ## 参考にした記事
 
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -133,3 +139,7 @@
   - `https://docs.aws.amazon.com/ja_jp/cdk/latest/guide/environments.html`
 - React アプリを本番環境で Docker 導入する
   - `https://qiita.com/suzuki0430/items/225eb66223298d704241`
+- Material-UIを使用してカレンダーアプリを作成するところで参考にした
+  - `https://katsuya-place.com/react-fullcalendar/`
+- Material-UIを使用してヘッダーを作成するところで参考にした
+  - `https://teech-lab.com/react-js-materialui-header/1297/`
