@@ -3,37 +3,30 @@ import { SignUpInputModel } from '../../components/templates/SignUpTemplate';
 
 // DynamoDBClientの使用準備
 const ddbClient = () => {
-  // aws.config.update({region: 'ap-northeast-1'});
-  // console.info(process.env.AWS_PROFILE);
-  // const credentials = new aws.SharedIniFileCredentials({profile: 'default'});
-  // aws.config.credentials = credentials;
-  return new aws.DynamoDB.DocumentClient({
-    apiVersion: '2012-08-10',
-  });
-  // // local環境の場合のみ、エンドポイントとダミー情報をセット
-  // if (process.env.REACT_APP_ENV === 'local') {
-  //   // return new DynamoDBClient({
-  //   return new aws.DynamoDB.DocumentClient({
-  //     region: process.env.REACT_APP_DB_REGION,
-  //     endpoint: process.env.REACT_APP_DB_ENDPOINT,
-  //     credentials: {
-  //       accessKeyId: 'dummy',
-  //       secretAccessKey: 'dummy',
-  //     },
-  //   });
-  // } else {
-  //   // return new DynamoDBClient({
-  //   return new aws.DynamoDB.DocumentClient({
-  //     region: process.env.REACT_APP_DB_REGION,
-  //     credentials: {
-  //       // dockerコンテナ内にセットした環境変数から呼び出している
-  //       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  //       accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY!,
-  //       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  //       secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY!,
-  //     },
-  //   });
-  // }
+  // local環境の場合のみ、エンドポイントとダミー情報をセット
+  if (process.env.REACT_APP_ENV === 'local') {
+    // return new DynamoDBClient({
+    return new aws.DynamoDB.DocumentClient({
+      region: process.env.REACT_APP_DB_REGION,
+      endpoint: process.env.REACT_APP_DB_ENDPOINT,
+      credentials: {
+        accessKeyId: 'dummy',
+        secretAccessKey: 'dummy',
+      },
+    });
+  } else {
+    // return new DynamoDBClient({
+    return new aws.DynamoDB.DocumentClient({
+      region: process.env.REACT_APP_DB_REGION,
+      credentials: {
+        // dockerコンテナ内にセットした環境変数から呼び出している
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY!,
+      },
+    });
+  }
 };
 
 // ユーザーテーブルのテーブル名定義
