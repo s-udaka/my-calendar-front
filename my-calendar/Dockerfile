@@ -17,8 +17,6 @@ COPY .env.prod .
 # eslintでエラーが出るため一旦コピー実施
 COPY .eslintrc.json .
 COPY .eslintignore .
-# awsの認証情報ファイルはroot配下にコピー
-COPY .aws/ /root/.aws/
 RUN yarn build
 
 FROM nginx:1.15-alpine
