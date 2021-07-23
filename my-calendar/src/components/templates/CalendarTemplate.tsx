@@ -74,6 +74,7 @@ export const CalendarTemplate: React.FC = () => {
    * 予定を追加する際にCalendarオブジェクトのメソッドを使用する必要がある。
    * (CalendarオブジェクトはRef経由でアクセスする必要がある。)
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = React.createRef<any>();
 
   const [inputTitle, setInputTitle] = useState(''); // フォームに入力されたタイトル
@@ -89,6 +90,7 @@ export const CalendarTemplate: React.FC = () => {
    *  - 開始: クリックしたカレンダーの開始時間
    *  - 終了: クリックしたカレンダーの終了時間
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCLick = (info: any) => {
     /**
      * infoにはカレンダーに登録されたイベントが入ってくる。そのイベントのIDを元にmyEvents
@@ -112,6 +114,7 @@ export const CalendarTemplate: React.FC = () => {
    *  - 開始: 選択した予定の開始時間
    *  - 終了: 選択した予定の終了時間
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSelect = (selectinfo: any) => {
     const start = new Date(selectinfo.start);
     const end = new Date(selectinfo.end);
