@@ -26,14 +26,21 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Add authentication information
+        env:
+          AWS_ACCESS_KEY_MY_CALENDAR: ${{ secrets.AWS_ACCESS_KEY_MY_CALENDAR }}
+          AWS_SECRET_KEY_MY_CALENDAR: ${{ secrets.AWS_SECRET_KEY_MY_CALENDAR }}
+        shell: bash
+        run: |
+          echo "aws_access_key_id = $AWS_ACCESS_KEY_MY_CALENDAR" >> my-calendar/.aws/credentials
+          echo "aws_secret_access_key = $AWS_SECRET_KEY_MY_CALENDAR" >> my-calendar/.aws/credentials
 
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: my-calendar-front
           IMAGE_TAG: latest
-          AWS_ACCESS_KEY_DYNAMO: ${{ secrets.AWS_ACCESS_KEY_DYNAMO }}
-          AWS_SECRET_KEY_DYNAMO: ${{ secrets.AWS_SECRET_KEY_DYNAMO }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG my-calendar/. --build-arg aws_access_key=$AWS_ACCESS_KEY_DYNAMO --build-arg aws_secret_key=$AWS_SECRET_KEY_DYNAMO
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG my-calendar/.
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
