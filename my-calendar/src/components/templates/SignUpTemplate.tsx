@@ -10,9 +10,10 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
+import { createTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 const Copyright = () => {
   return (
@@ -25,9 +26,10 @@ const Copyright = () => {
       {'.'}
     </Typography>
   );
-}
+};
 
-const useStyles = makeStyles((theme) => ({
+const theme = createTheme();
+const useStyles = makeStyles(() => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -60,24 +62,24 @@ export interface SignUpTemplateProps {
   };
   msg: {
     errMsg: string;
-  }
+  };
 }
 
 export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
   events,
-  msg
+  msg,
 }) => {
   const classes = useStyles();
 
   // 入力フォームバリデーション
   const { handleSubmit, control } = useForm<SignUpInputModel>();
-  const onSubmit: SubmitHandler<SignUpInputModel> = data => {
+  const onSubmit: SubmitHandler<SignUpInputModel> = (data) => {
     events.onClickSignUp({
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
-      password: data.password
-    })
+      password: data.password,
+    });
   };
 
   return (
@@ -90,15 +92,27 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <p color='red'>{msg.errMsg}</p>
-        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+        <p color="red">{msg.errMsg}</p>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Controller
-                name='firstName'
+                name="firstName"
                 control={control}
-                rules={{ required: '氏名（名）を入力してください', maxLength: { value: 30, message: '氏名（名）は30文字以内で入力してください' }}}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                rules={{
+                  required: '氏名（名）を入力してください',
+                  maxLength: {
+                    value: 30,
+                    message: '氏名（名）は30文字以内で入力してください',
+                  },
+                }}
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     autoComplete="fname"
                     variant="outlined"
@@ -117,10 +131,19 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <Controller
-                name='lastName'
+                name="lastName"
                 control={control}
-                rules={{ required: '氏名（姓）を入力してください', maxLength: { value: 30, message: '氏名（姓）は30文字以内で入力してください' } }}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                rules={{
+                  required: '氏名（姓）を入力してください',
+                  maxLength: {
+                    value: 30,
+                    message: '氏名（姓）は30文字以内で入力してください',
+                  },
+                }}
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     variant="outlined"
                     required
@@ -139,10 +162,19 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
             </Grid>
             <Grid item xs={12}>
               <Controller
-                name='email'
+                name="email"
                 control={control}
-                rules={{ required: 'メールアドレスを入力してください', maxLength: { value: 100, message: 'メールアドレスは100文字以内で入力してください' } }}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                rules={{
+                  required: 'メールアドレスを入力してください',
+                  maxLength: {
+                    value: 100,
+                    message: 'メールアドレスは100文字以内で入力してください',
+                  },
+                }}
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     variant="outlined"
                     required
@@ -162,14 +194,23 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
             </Grid>
             <Grid item xs={12}>
               <Controller
-                name='password'
+                name="password"
                 control={control}
                 rules={{
                   required: 'パスワードを入力してください',
-                  maxLength: { value: 20, message: 'パスワードは20文字以内で入力してください' },
-                  minLength: { value: 8, message: 'パスワードは8文字以上で入力してください'  }
+                  maxLength: {
+                    value: 20,
+                    message: 'パスワードは20文字以内で入力してください',
+                  },
+                  minLength: {
+                    value: 8,
+                    message: 'パスワードは8文字以上で入力してください',
+                  },
                 }}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     variant="outlined"
                     required
@@ -193,11 +234,10 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container>
             <Grid item>
               <Link href="/" variant="body2">
                 Already have an account? Sign in
