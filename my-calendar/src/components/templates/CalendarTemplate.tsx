@@ -1,6 +1,6 @@
-import React from 'react'; // useState
+import React, { useState } from 'react';
 // FullCalendarコンポーネント
-import FullCalendar from '@fullcalendar/react';
+import FullCalendar, { DateSelectArg } from '@fullcalendar/react';
 // FullCalendarで週表示を可能にするモジュール
 import timeGridPlugin from '@fullcalendar/timegrid';
 // FullCalendarで月表示を可能にするモジュール
@@ -66,13 +66,13 @@ import {
 // DatePickerのロケールを日本に設定
 // registerLocale('ja', ja);
 
-// // 追加するイベントの型
-// interface myEventsType {
-//   id: number;
-//   title: string;
-//   start: Date;
-//   end: Date;
-// }
+// 追加するイベントの型
+interface myEventsType {
+  id: number;
+  text: string;
+  date: Date;
+  image: string;
+}
 
 export const CalendarTemplate: React.FC = () => {
   // const classes = useStyles();
@@ -87,24 +87,37 @@ export const CalendarTemplate: React.FC = () => {
   // const [inputStart, setInputStart] = useState(new Date()); // イベントの開始時刻
   // const [inputEnd, setInputEnd] = useState(new Date()); // イベントの終了時刻
   // const [inView, setInView] = useState(false); // イベント登録フォームの表示有無(trueなら表示する)
-  // const [myEvents, setMyEvents] = useState<myEventsType[]>([]); // 登録されたイベントが格納されていく myEventsTypタイプの配列
+  const [myEvents, setMyEvents] = useState<myEventsType[]>([]); // 登録されたイベントが格納されていく myEventsTypタイプの配列
 
   const [open, setOpen] = React.useState(false); // モーダルの開閉state
+  const [dateValue, setDateValue] = React.useState<Date>(
+    new Date('2000-01-01T00:00:00')
+  );
+  const [textValue, setTextValue] = React.useState('');
+  const [imageValue, setImageValue] = React.useState('');
 
-  const handleOpen = () => {
+  const handleAddModalOpen = (arg: DateSelectArg) => {
+    setDateValue(arg.start);
+    setOpen(true);
+  };
+
+  const handleChangeModalOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
 
-  const CalendarModalProps: CalendarModalTemplateProps = {
-    events: {
-      handleClose: handleClose,
-    },
-    inputs: {
-      modalOpen: open,
-    },
+  const handleSetDate = (date: Date) => {
+    setDateValue(date);
+  };
+
+  const handleSetText = (text: string) => {
+    setTextValue(text);
+  };
+
+  const handleSetImage = (image: string) => {
+    setImageValue(image);
   };
 
   /**
@@ -151,30 +164,26 @@ export const CalendarTemplate: React.FC = () => {
   //   setInView(true);
   // };
 
-  // /**
-  //  * カレンダーに予定を追加する
-  //  */
-  // const onAddEvent = () => {
-  //   const startTime = inputStart;
-  //   const endTime = inputEnd;
+  /**
+   * カレンダーに予定を追加する
+   */
+  const onAddEvent = () => {
+    const event: myEventsType = {
+      id: myEvents.length,
+      text: textValue,
+      date: dateValue,
+      image: imageValue,
+    };
 
-  //   if (startTime >= endTime) {
-  //     alert('開始時間と終了時間を確認してください。');
-  //     return;
-  //   }
-  //   const event: myEventsType = {
-  //     id: myEvents.length,
-  //     title: inputTitle,
-  //     start: startTime,
-  //     end: endTime,
-  //   };
+    // Stateにイベントを追加する。ここで登録されたイベントは、予定を変更するときなどに使用する
+    setMyEvents([...myEvents, event]);
 
-  //   // Stateにイベントを追加する。ここで登録されたイベントは、予定を変更するときなどに使用する
-  //   setMyEvents([...myEvents, event]);
+    // モーダルを閉じる
+    setOpen(false);
 
-  //   // カレンダーに予定を登録して表示するための処理
-  //   ref.current.getApi().addEvent(event);
-  // };
+    // カレンダーに予定を登録して表示するための処理
+    ref.current.getApi().addEvent(event);
+  };
 
   // /**
   //  * ここからはフォームを構成する要素
@@ -266,6 +275,22 @@ export const CalendarTemplate: React.FC = () => {
   //   </div>
   // );
 
+  const CalendarModalProps: CalendarModalTemplateProps = {
+    modalOpen: open,
+    events: {
+      handleClose: handleClose,
+      handleSetDate: handleSetDate,
+      handleSetText: handleSetText,
+      handleSetImage: handleSetImage,
+      handleAddEvent: onAddEvent,
+    },
+    inputs: {
+      date: dateValue,
+      text: textValue,
+      image: imageValue,
+    },
+  };
+
   return (
     <div>
       {/* {coverElement} */}
@@ -296,8 +321,8 @@ export const CalendarTemplate: React.FC = () => {
           end: 'dayGridMonth,timeGridWeek', // 月・週表示を切り替えるボタンを表示する
         }}
         ref={ref}
-        eventClick={handleOpen}
-        select={handleOpen}
+        eventClick={handleChangeModalOpen}
+        select={handleAddModalOpen}
       />
     </div>
   );

@@ -39,16 +39,23 @@ const useStyles = makeStyles(() =>
 );
 
 export interface CalendarModalTemplateProps {
+  modalOpen: boolean;
   events: {
     handleClose: () => void;
+    handleSetDate: (date: Date) => void;
+    handleSetText: (text: string) => void;
+    handleSetImage: (image: string) => void;
+    handleAddEvent: () => void;
   };
   inputs: {
-    modalOpen: boolean;
-    // startTime: Date;
+    date: Date;
+    text: string;
+    image: string;
   };
 }
 
 export const CalendarModalTemplate: React.FC<CalendarModalTemplateProps> = ({
+  modalOpen,
   events,
   inputs,
 }) => {
@@ -56,12 +63,26 @@ export const CalendarModalTemplate: React.FC<CalendarModalTemplateProps> = ({
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
-  const [value, setValue] = React.useState<Date | null>(
-    new Date('2014-08-18T21:11:54')
-  );
+  //   const [value, setValue] = React.useState<Date | null>(
+  //     new Date('2014-08-18T21:11:54')
+  //   );
 
-  const handleChange = (newValue: Date | null) => {
-    setValue(newValue);
+  const handleChangeDate = (newValue: Date | null) => {
+    if (newValue) events.handleSetDate(newValue);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeText = (e: any) => {
+    events.handleSetText(e.target.value);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeImage = (e: any) => {
+    events.handleSetImage(e.target.value);
+  };
+
+  const onClickButton = () => {
+    events.handleAddEvent();
   };
   //   const [open, setOpen] = React.useState(false);
 
@@ -75,30 +96,44 @@ export const CalendarModalTemplate: React.FC<CalendarModalTemplateProps> = ({
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
+      <h2>写真を追加する</h2>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Stack spacing={2}>
           <DesktopDatePicker
             label="Date picker desktop"
             inputFormat="MM/dd/yyyy"
-            value={value}
-            onChange={handleChange}
+            value={inputs.date}
+            onChange={handleChangeDate}
             renderInput={(params) => <TextField {...params} />}
           />
           <TimePicker
             label="Time picker"
-            value={value}
-            onChange={handleChange}
+            value={inputs.date}
+            onChange={handleChangeDate}
             renderInput={(params) => <TextField {...params} />}
           />
         </Stack>
       </LocalizationProvider>
+      <input
+        type="text"
+        name="text"
+        placeholder="写真の一言をどうぞ"
+        value={inputs.text}
+        onChange={handleChangeText}></input>
+      <input
+        type="text"
+        name="image"
+        placeholder="ここに画像"
+        value={inputs.image}
+        onChange={handleChangeImage}></input>
+      <button onClick={onClickButton}>写真を追加</button>
     </div>
   );
 
   return (
     <div>
       <Modal
-        open={inputs.modalOpen}
+        open={modalOpen}
         onClose={events.handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description">
