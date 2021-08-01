@@ -7,9 +7,15 @@ RUN yarn install
 # docker build時に環境変数を受け取れるように宣言
 ARG aws_access_key
 ARG aws_secret_key
+ARG aws_cognito_pool_id
+ARG aws_cognito_client_id
+ARG aws_cognito_identity_pool_id
 # 環境変数にセット
 ENV REACT_APP_AWS_ACCESS_KEY=$aws_access_key
 ENV REACT_APP_AWS_SECRET_KEY=$aws_secret_key
+ENV REACT_APP_AWS_COGNITO_POOL_ID=$aws_cognito_pool_id
+ENV REACT_APP_AWS_COGNITO_CLIENT_ID=$aws_cognito_client_id
+ENV REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID=$aws_cognito_identity_pool_id
 # build時に必要なディレクトリ・ファイルだけコピー
 COPY public/ ./public/
 COPY src/ ./src/

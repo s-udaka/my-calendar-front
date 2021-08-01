@@ -5,7 +5,8 @@ import {
   SignInInputModel,
 } from '../templates/SignInTemplate';
 import { useHistory } from 'react-router';
-import { getUser } from '../../common/logics/dynamodb-controller';
+// import { getUser } from '../../common/logics/dynamodb-controller';
+import { getUser } from '../../common/logics/cognito-controller';
 
 const Login: React.FC = () => {
   const history = useHistory();
@@ -13,9 +14,11 @@ const Login: React.FC = () => {
 
   const handleOnClickLogin = (args: SignInInputModel) => {
     if (args.email && args.password) {
-      getUser(args.email)
+      getUser(args.email, args.password)
         .then((res) => {
-          if (res && res.password === args.password) {
+          // if (res && res.password === args.password) {
+          if (res) {
+            console.info(res);
             history.push('/home', res);
           } else {
             setErrMsg('メールアドレスまたはパスワードが正しくありません');

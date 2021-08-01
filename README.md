@@ -106,6 +106,14 @@
 
 - material-ui のライブラリバージョンを上げたり諸々今までのコードに修正したり必要だった
 
+### AWS Cognitoによる認証機能の実施
+
+- `yarn add amazon-cognito-identity-js`←Cognitoをjsで楽にいじられるモジュール
+- `yarn add aws-amplify aws-amplify-react @aws-amplify/ui-react`←Cognitoでの認証・認可をコードベースで扱うためのパッケージ
+- 参考記事を参考に、ユーザープールID・クライアントID・IdentityPoolIdを作成（IdentityPoolIdは使わないかも）
+  - Reactアプリで上記情報を呼び出せるようにGitHubのシークレットキーに登録
+  - GitHubActionsのyamlにDockerfileの環境変数にセットするように処理を追加
+
 ## 参考にした記事
 
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`
@@ -154,3 +162,8 @@
     - ライブラリのバージョンを上げたことにより@material-ui/core/styles で makeStyles が使えなくなったところで参考にした
 - Material-UI を使用してヘッダーを作成するところで参考にした
   - `https://teech-lab.com/react-js-materialui-header/1297/`
+- ReactとAmazon Cognitoでユーザーを管理するところで参考にした
+  - `https://zenn.dev/tatsurom/articles/b6e5fc200035a0ef9467`
+  - `https://qiita.com/y4u0t2a1r0/items/afe7a807604a1358492a`
+  - `https://zenn.dev/dove/articles/63494de652511c`
+  - `https://qiita.com/hassoubeat/items/8626a5390b6ed4c9ef65`

@@ -4,7 +4,7 @@ import { SignUpInputModel } from '../../components/templates/SignUpTemplate';
 // DynamoDBClientの使用準備
 const ddbClient = () => {
   return new aws.DynamoDB.DocumentClient({
-    region: 'ap-northeast-1',
+    region: process.env.REACT_APP_DB_REGION,
     credentials: {
       // dockerコンテナ内にセットした環境変数から呼び出している
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -6,6 +6,7 @@ import {
   HeaderTemplateProps,
 } from '../templates/HeaderTemplate';
 import { CalendarTemplate } from '../templates/CalendarTemplate';
+import { getUserData, signOut } from '../../common/logics/cognito-controller';
 
 const Home: React.FC<RouteComponentProps> = () => {
   const history = useHistory();
@@ -19,10 +20,22 @@ const Home: React.FC<RouteComponentProps> = () => {
   useEffect(() => {
     console.log('HomeのuseEffectが実行されました');
     console.log(userInfo);
+    getUserData(); // ログイン中のユーザー情報を試しに取得（ちゃんと取れてた）
   });
 
   const handleOnClickLogout = () => {
-    history.push('/');
+    signOut()
+      .then((res) => {
+        if (res) {
+          history.push('/');
+        } else {
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        history.push('/');
+      });
   };
 
   const HeaderProps: HeaderTemplateProps = {

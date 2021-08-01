@@ -34,6 +34,9 @@ jobs:
           IMAGE_TAG: latest
           AWS_ACCESS_KEY_MY_CALENDAR: ${{ secrets.AWS_ACCESS_KEY_MY_CALENDAR }}
           AWS_SECRET_KEY_MY_CALENDAR: ${{ secrets.AWS_SECRET_KEY_MY_CALENDAR }}
+          AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
+          AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
+          AWS_COGNITO_IDENTITY_POOL_ID: ${{ secrets.AWS_COGNITO_IDENTITY_POOL_ID }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG my-calendar/. --build-arg aws_access_key=$AWS_ACCESS_KEY_MY_CALENDAR --build-arg aws_secret_key=$AWS_SECRET_KEY_MY_CALENDAR
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG my-calendar/. --build-arg aws_access_key=$AWS_ACCESS_KEY_MY_CALENDAR --build-arg aws_secret_key=$AWS_SECRET_KEY_MY_CALENDAR --build-arg aws_cognito_pool_id=$AWS_COGNITO_POOL_ID --build-arg aws_cognito_client_id=$AWS_COGNITO_CLIENT_ID --build-arg aws_cognito_identity_pool_id=$AWS_COGNITO_IDENTITY_POOL_ID
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
