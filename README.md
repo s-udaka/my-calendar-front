@@ -114,6 +114,11 @@
   - Reactアプリで上記情報を呼び出せるようにGitHubのシークレットキーに登録
   - GitHubActionsのyamlにDockerfileの環境変数にセットするように処理を追加
 
+### Cognitoによる認証周りの実装をバックエンド側に寄せた（フロントとバックエンドでプロジェクトを分けた）
+
+- `yarn add axios`
+- バックエンド側のユーザー作成API等を呼び出すようにaxios通信を実装
+
 ## 参考にした記事
 
 - `https://www.seeds-std.co.jp/blog/creators/2021-01-28-183934/`

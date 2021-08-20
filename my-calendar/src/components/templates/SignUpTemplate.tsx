@@ -3,8 +3,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -54,6 +54,7 @@ export interface SignUpInputModel {
   lastName: string;
   email: string;
   password: string;
+  role: string;
 }
 
 export interface SignUpTemplateProps {
@@ -79,6 +80,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
       lastName: data.lastName,
       email: data.email,
       password: data.password,
+      role: data.role ? '1' : '0',
     });
   };
 
@@ -224,6 +226,22 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : null}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="role"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <FormControlLabel
+                    control={<Checkbox value="role" color="primary" />}
+                    id="role"
+                    label="Are you an administrator?"
+                    name="role"
+                    value={value}
+                    onChange={onChange}
                   />
                 )}
               />
