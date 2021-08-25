@@ -7,6 +7,7 @@ import {
 } from '../templates/HeaderTemplate';
 import { CalendarTemplate } from '../templates/CalendarTemplate';
 // import { getUserData, signOut } from '../../common/logics/cognito-controller';
+// eslint-disable-next-line
 import { logout, getUserData } from '../../common/logics/users-controller';
 
 const Home: React.FC<RouteComponentProps> = () => {

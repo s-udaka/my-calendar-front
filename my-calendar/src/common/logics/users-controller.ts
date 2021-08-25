@@ -73,7 +73,7 @@ export const logout = async (): Promise<boolean> => {
   const backHost = process.env.REACT_APP_BACKEND_HOST;
   let resFlg = false;
   await axios
-    .delete(backHost + '/logout')
+    .delete(backHost + '/logout', { data: { userId: '1s1h1o9@gmail.com' } })
     .then((res) => {
       console.info(res);
       console.info('logout終了');
@@ -94,7 +94,7 @@ export const getUserData = async (): Promise<UserModel | undefined> => {
   const backHost = process.env.REACT_APP_BACKEND_HOST;
   let resData: UserModel | undefined;
   await axios
-    .get(backHost + '/user')
+    .get(backHost + '/user/' + '1s1h1o9@gmail.com')
     .then((res) => {
       console.info(res);
       console.info('getUserData終了');
